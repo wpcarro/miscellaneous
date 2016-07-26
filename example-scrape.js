@@ -6,7 +6,7 @@ const fs = require('fs');
 const x = require('x-ray')();
 const { execSync } = require('child_process');
 
-var html = fs.readFileSync('./mks26.html');
+const html = fs.readFileSync('./mks26.html');
 
 x(html, 'span.team-member-username', [{
   username: 'a',

@@ -1,21 +1,21 @@
-// grabs students' github usernames
+// Uses an HTML scraper to pull github usernames from a
+// github.com group. It uses Node's child processes as
+// an escape hatch to run bash commands.
 
-var fs = require('fs');
-var Xray = require('x-ray');
-var x = Xray();
-var execSync = require('child_process').execSync;
+const fs = require('fs');
+const x = require('x-ray')();
+const { execSync } = require('child_process');
 
 var html = fs.readFileSync('./mks26.html');
 
-var urls;
 x(html, 'span.team-member-username', [{
   username: 'a',
-}])(function(err, obj) {
-	usernames = obj.map(function(user) {
-		return user.username.trim();
-	});
-	usernames.forEach(function(username, idx) {
-		console.log('username: ' + username);
-		execSync('echo ' + username + ' >> ./git-usernames.txt');
-	});
+}])((err, obj) => {
+  obj.map(function(user) {
+    return user.username.trim();
+  })
+  .forEach(username => {
+    console.log(`username: ${username}`);
+    execSync(`echo ${username} >> ./git-usernames.txt`);
+  });
 });

@@ -4,7 +4,7 @@
 /**
  * @param {Object} obj The object being extended with the
  *     mixins defined within the function body.
- * @ return {Object} The same reference to the object that
+ * @return {Object} The same reference to the object that
  *     was initially passed in with two additional
  *     methods: trigger and on.
  */
@@ -14,7 +14,7 @@ var mixEvents = obj => {
   
   /**
    * @param {string} event Name of the event to trigger.
-   * @ return {(Array<*>|false)} Returns an array of the
+   * @return {(Array<*>|false)} Returns an array of the
    *     values returned from each cb stored on the events
    *     hash. If there is no event registered, then this
    *     function returns false.

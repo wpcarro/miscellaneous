@@ -1,3 +1,8 @@
+/**
+ * This code was a personal experiment to use Math.sin(..) to create an oscillating animation.
+ * Additionally this code demonstrates self-contained Javascript that manipulates the DOM's elements and those elements' styles.
+ * It also demonstrates use of the window.requestAnimationFrame API.
+ */
 (function main() {
 
   const step_amt = 0.050;

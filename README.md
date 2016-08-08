@@ -8,7 +8,7 @@ This repository hosts code snippets that may have no place anywhere else. Some o
 ## Todo
 * Write a script that scrapes the top-most block-comment from each file and pairs it with the file's name in a map. Use the generated map to update this README.md's "Synopsis" section.
 
-```
+```javascript
 // rough sketch of Markdown API
 
 const synopsisMarkdownObject = Markdown.querySelect('## Synopsis')

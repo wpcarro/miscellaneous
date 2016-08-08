@@ -20,10 +20,11 @@ let synopsisList = [
   {filename: 'file_n', fileDescription: '...'}
 ]
 
-synopsisMarkdownObject.innerText = syopsisList
-  .map(obj => obj.fileDescription)
-  .map(description => `* ${description}`)
-  .join('\n')
+synopsisMarkdownObject.setInnerText(
+  syopsisList
+    .map(obj => obj.fileDescription)
+    .map(description => `* ${description}`)
+    .join('\n'))
 ```
 
 ## The Road Ahead

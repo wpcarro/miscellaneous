@@ -1,9 +1,6 @@
 # About "miscellaneous"
 This repository hosts code snippets that may have no place anywhere else. Some of the snippets are intended to illustrate coding concepts, while others are simply there whimsically. Feel free to poke your head around although be forewarned that this is primarily for personal use.
 
-## Synopsis
-* child one
-* child two
 
 ## Todo
 * Write a script that scrapes the top-most block-comment from each file and pairs it with the file's name in a map. Use the generated map to update this README.md's "Synopsis" section.

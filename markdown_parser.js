@@ -9,14 +9,13 @@ import { last, tail } from 'helpers';
  *     section headings mapped to their associated content.
  */
 function parse_markdown(text) {
-
-	/**
+  /**
    * @param {Object} page_structure Data structure to store the
    *    parsed markdown text.
    * @param {string} section Consecutive lines of texts demarcated
    *     by newline characters.
    */
-	const reducer = (page_structure, section) => {
+  const reducer = (page_structure, section) => {
     lines = section.split(/\n/g);
     const first_line = lines[0];
     const prefix = last(first_line.match(/(#+)\s/g));
@@ -30,5 +29,5 @@ function parse_markdown(text) {
     return page_structure;
   };
 
-  return sample_input.split(/\n{2,}/g).reduce(reducer, {});	
+  return text.split(/\n{2,}/g).reduce(reducer, {});	
 }

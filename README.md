@@ -7,25 +7,8 @@ This repository hosts code snippets that may have no place anywhere else. Some o
 
 ## Todo
 * Write a script that scrapes the top-most block-comment from each file and pairs it with the file's name in a map. Use the generated map to update this README.md's "Synopsis" section.
+* Create a markdown parser
 
-```javascript
-// rough sketch of Markdown API
-
-const synopsisMarkdownObject = Markdown.querySelect('## Synopsis')
-
-let synopsisList = [
-  {filename: 'file_1', fileDescription: '...'},
-  {filename: 'file_2', fileDescription: '...'},
-  ...
-  {filename: 'file_n', fileDescription: '...'}
-]
-
-synopsisMarkdownObject.setInnerText(
-  syopsisList
-    .map(obj => obj.fileDescription)
-    .map(description => `* ${description}`)
-    .join('\n'))
-```
 
 ## The Road Ahead
 In the future, this repository may serve as an exhibition of my coding interests and coding acumen. For now, however, it is entirely in an infancy stage and hosts code spanning 1+ years of development.

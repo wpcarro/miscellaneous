@@ -18,6 +18,17 @@ const test_tree = {
 
 
 /**
+ * Namespace for generic helper functions.
+ * @namespace
+ */
+const helpers = {
+  identity(x) {
+    return x;
+  }  
+};
+
+
+/**
  * Namespace for Tree functions.
  * @namespace
  */
@@ -87,7 +98,7 @@ function bf_apply(cb, t) {
  *    node's values.
  * @param {Object} t The tree object being traversed.
  */
-function *bf_apply_generator(cb, t) {
+function *create_bf_apply_generator(cb, t) {
   yield *(function *sub_routine(nodes) {
     let my_q = q.create();
 
@@ -113,7 +124,7 @@ function *bf_apply_generator(cb, t) {
  *    node's values.
  * @param {Object} t The tree object being traversed.
  */
-function df_apply_generator(cb, nodes) {
+function df_apply(cb, nodes) {
   if (!nodes) { return; }
 
   for (let node, i = 0; i < nodes.length; i += 1) {
@@ -133,7 +144,7 @@ function df_apply_generator(cb, nodes) {
  *    node's values.
  * @param {Object} t The tree object being traversed.
  */
-function *df_apply_generator(cb, nodes) {
+function *create_df_apply_generator(cb, nodes) {
   if (!nodes) { return; }
 
   for (let node, i = 0; i < nodes.length; i += 1) {
@@ -145,3 +156,18 @@ function *df_apply_generator(cb, nodes) {
     }
   }
 }
+
+/** Applications */
+const bf_generator = create_bf_apply_generator(helpers.identity, test_tree);
+const df_generator = create_df_apply_generator(helpers.identity, test_tree.children);
+
+// Iterate through trees as easily as you might iterator through an array.
+for (let value of bf_generator) {
+  console.log(value);
+}
+// => a, b, c, d, e, f, g, h, i, j
+
+for (let value of df_generator) {
+  console.log(value);
+}
+// => a, d, e, b, f, c, g, i, j, h

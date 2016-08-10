@@ -1,4 +1,4 @@
-const tree = {
+const test_tree = {
   value: 'root',
   children: [
     {
@@ -17,19 +17,25 @@ const tree = {
 };
 
 
-function has_children(node) {
-  return typeof node.children !== 'undefined';
-}
+/**
+ * Namespace for Tree functions.
+ * @namespace
+ */
+const tree = {
+  has_children(node) {
+    return typeof node.children !== 'undefined';
+  }  
+};
 
 
-function is_leaf(node) {
-  return !has_children(node);
-}
 
-
+/**
+ * Namespace for Queue functions.
+ * @namespace
+ */
 const q = {
-  create(starter_values) {
-    return starter_values || [];
+  create(initial_values) {
+    return initial_values || [];
   },
 
   next(queue) {
@@ -40,7 +46,7 @@ const q = {
     return queue.slice(1);
   },
 
-  enqueue(queue, value) {
+  enqueue(value, queue) {
     return queue.concat(value);
   },
 
@@ -50,27 +56,27 @@ const q = {
 };
 
 
-function add_children_to_queue(some_q, children) {
-  children.forEach(child => {
-    some_q = q.enqueue(some_q, child);
-  });
-
-  return some_q;
-}
-
-
-function bf_apply(cb, tree) {
+/**
+ * Breadth-first traversal of a tree object.
+ * @param {function(*)} cb Callback function applied and assigned to each
+ *    node's values.
+ * @param {Object} t The tree object being traversed.
+ */
+function bf_apply(cb, t) {
+  /**
+   * @param {Array<Object>} nodes A level of nodes within a tree.
+   */
   (function sub_routine(nodes) {
     let my_q = q.create();
     nodes.forEach(node => {
-      cb(node.value);
-      if (has_children(node)) {
-        my_q = add_children_to_queue(my_q, node.children);
+      node.value = cb(node.value);
+      if (tree.has_children(node)) {
+        my_q = q.enqueue(node.children, my_q)
       }
     }); 
 
     if (q.has_items(my_q)) {
       sub_routine(my_q);
     }
-  }(tree.children));
+  }(t.children));
 }

@@ -79,3 +79,49 @@ function bf_apply(cb, t) {
     }
   }(t.children));
 }
+
+
+/**
+ * Generator-ized breadth-first traversal of a tree object.
+ * @param {function(*)} cb Callback function applied and assigned to each
+ *    node's values.
+ * @param {Object} t The tree object being traversed.
+ */
+function *bf_apply_generator(cb, t) {
+  yield *(function *sub_routine(nodes) {
+    let my_q = q.create();
+
+    for (let node, i = 0; i < nodes.length; i += 1) {
+      node = nodes[i];
+      node.value = yield cb(node.value);
+
+      if (tree.has_children(node)) {
+        my_q = q.enqueue(node.children, my_q)
+      }
+    }
+
+    if (q.has_items(my_q)) {
+      yield *sub_routine(my_q);
+    }
+  }(t.children));
+}
+
+
+/**
+ * Generator-ized depth-first traversal of a tree object.
+ * @param {function(*)} cb Callback function applied and assigned to each
+ *    node's values.
+ * @param {Object} t The tree object being traversed.
+ */
+function *df_apply(cb, nodes) {
+  if (!nodes) { return; }
+
+  for (let node, i = 0; i < nodes.length; i += 1) {
+    node = nodes[i];
+    node.value = yield cb(node.value);
+
+    if (tree.has_children(node)) {
+      yield *df_apply(cb, node.children);
+    }
+  }
+}

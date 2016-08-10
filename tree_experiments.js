@@ -28,7 +28,6 @@ const tree = {
 };
 
 
-
 /**
  * Namespace for Queue functions.
  * @namespace

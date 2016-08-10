@@ -108,12 +108,32 @@ function *bf_apply_generator(cb, t) {
 
 
 /**
+ * Depth-first traversal of a tree object.
+ * @param {function(*)} cb Callback function applied and assigned to each
+ *    node's values.
+ * @param {Object} t The tree object being traversed.
+ */
+function df_apply_generator(cb, nodes) {
+  if (!nodes) { return; }
+
+  for (let node, i = 0; i < nodes.length; i += 1) {
+    node = nodes[i];
+    node.value = cb(node.value);
+
+    if (tree.has_children(node)) {
+      df_apply(cb, node.children);
+    }
+  }
+}
+
+
+/**
  * Generator-ized depth-first traversal of a tree object.
  * @param {function(*)} cb Callback function applied and assigned to each
  *    node's values.
  * @param {Object} t The tree object being traversed.
  */
-function *df_apply(cb, nodes) {
+function *df_apply_generator(cb, nodes) {
   if (!nodes) { return; }
 
   for (let node, i = 0; i < nodes.length; i += 1) {

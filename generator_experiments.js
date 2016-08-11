@@ -7,7 +7,7 @@
 function run() {
 
   function httpGet(g) {
-    fetch('https://api.icndb.com/jokes/random?firstName=John&amp;lastName=Doe')
+    fetch('https://api.icndb.com/jokes/random')
       .then(res => res.json())
       .then(json => g.next(json));
   }

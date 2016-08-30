@@ -69,7 +69,7 @@ all(
   true
 )
 .then(
-  (...responses) => console.log(responses)
+  (responses) => console.log(responses)
 );
 
 /**
@@ -86,5 +86,5 @@ all(
   true
 )
 .then(
-  (...responses) => console.log(responses)
+  (responses) => console.log(responses)
 );

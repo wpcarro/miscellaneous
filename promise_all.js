@@ -7,11 +7,24 @@ const httpGet = (url) =>
     )
   );
 
+/**
+ * Predicate to test if each element within an array is not
+ * undefined or null.
+ * @param {Array<*>}
+ * @ return {Boolean}
+ */
+const isFull = xs =>
+  xs.filter(
+    x => typeof x !== 'undefined' && x !== null
+  ).length === xs.length;
 
-const isFull = array =>
-  array.filter(Boolean).length === array.length;
 
-
+/**
+ * Waits for all promises to resolve and passes each promise's resolve
+ * value into the Promise returned by the initial call to all(..).
+ * @param {Array<Promise>} promises
+ * @return {Promise} 
+ */
 const all = (...promises) => {
   let counter = 0;
   const t0 = performance.now();
@@ -39,6 +52,7 @@ const all = (...promises) => {
 };
 
 
+// Test functionality
 all(
   httpGet('https://google.com'),
   httpGet('https://stackoverflow.com'),

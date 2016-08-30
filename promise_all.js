@@ -10,7 +10,7 @@ const httpGet = (url) =>
 /**
  * Predicate to test if each element within an array is not
  * undefined or null.
- * @param {Array<*>}
+ * @param {Array<*>} xs
  * @ return {Boolean}
  */
 const isFull = xs =>

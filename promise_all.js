@@ -20,20 +20,20 @@ const isFull = xs =>
 
 
 /**
- * Waits for all promises to resolve and passes each promise's resolve
- * value into the Promise returned by the initial call to all(..).
- * @param {Array<Promise>} promises
+ * Returns a promise that resolves when all of the promises passed
+ * to all(..) have been resolved.
+ * @param {Array<*>} xs
  * @return {Promise} 
  */
-const all = (...promises) => {
+const all = (...xs) => {
   let counter = 0;
   const t0 = performance.now();
 
-  const responses = promises.map(() => null);
+  const responses = xs.map(() => null);
   let resolveThyself;
   
-  promises.forEach((promise, i) => {
-    promise.then(response => {
+  xs.forEach((x, i) => {
+    Promise.resolve(x).then(response => {
       responses[i] = {
         place: ++counter,
         response,

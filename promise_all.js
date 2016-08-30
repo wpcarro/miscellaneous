@@ -23,9 +23,10 @@ const isFull = xs =>
  * Returns a promise that resolves when all of the promises passed
  * to all(..) have been resolved.
  * @param {Array<*>} xs
+ * @param {Boolean} diagnostics
  * @return {Promise} 
  */
-const all = (...xs) => {
+const all = (xs, diagnostics = false) => {
   let counter = 0;
   const t0 = performance.now();
 
@@ -34,11 +35,12 @@ const all = (...xs) => {
   
   xs.forEach((x, i) => {
     Promise.resolve(x).then(response => {
-      responses[i] = {
-        place: ++counter,
-        response,
-        resolveTime: performance.now() - t0
-      };
+      responses[i] = diagnostics ?
+        {
+          place: ++counter,
+          response,
+          resolveTime: performance.now() - t0
+        } : response;
       
       if (isFull(responses)) {
         resolveThyself();
@@ -53,10 +55,35 @@ const all = (...xs) => {
 
 
 // Test functionality
+
+/**
+ * 1.
+ * All arguments are Promises
+ */
 all(
-  httpGet('https://google.com'),
-  httpGet('https://stackoverflow.com'),
-  httpGet('http://ycombinator.com')
+  [
+    httpGet('https://google.com'),
+    httpGet('https://stackoverflow.com'),
+    httpGet('http://ycombinator.com')
+  ],
+  true
+)
+.then(
+  (...responses) => console.log(responses)
+);
+
+/**
+ * 2.
+ * Arguments are a mixture of pending Promises,
+ * resolved Promises, and raw values.
+ */
+all(
+  [
+    httpGet('https://google.com'),
+    Promise.resolve('https://stackoverflow.com'),
+    'http://ycombinator.com'
+  ],
+  true
 )
 .then(
   (...responses) => console.log(responses)

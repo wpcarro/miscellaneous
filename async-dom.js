@@ -1,6 +1,6 @@
 /**
  * Retrieves a DOM element. If the element is not present, observes changes to
- * the DOM if the element is not present.
+ * the DOM until the element is present.
  * @param {string} selector CSS selector string.
  * @return {Element} DOM element reference.
  */
